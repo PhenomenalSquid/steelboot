@@ -1,0 +1,37 @@
+FROM fedora:40
+
+# Install all required build and runtime dependencies
+RUN dnf install -y \
+    cmake \
+    git \
+    make \
+    ninja-build \
+    python3 \
+    python3-pyyaml \
+    python3-jinja2 \
+    python3-setuptools \
+    openscap-scanner \
+    curl \
+    sudo && \
+    dnf clean all
+
+# Download and extract SSG source
+WORKDIR /scap
+RUN git clone --depth 1 --branch v0.1.77 https://github.com/ComplianceAsCode/content.git /scap/content
+
+WORKDIR /scap/content
+WORKDIR /scap/content/build
+RUN cmake -G Ninja -DSSG_PRODUCT_UBUNTU=ON .. && \
+    ninja ubuntu2204
+
+# Copy result to /output
+RUN mkdir -p /output && \
+    cp /scap/content/build/ssg-ubuntu2204-xccdf.xml /output/
+
+#RUN oscap info /output/ssg-ubuntu2204-xccdf.xml > /output/oscap_info.log || echo "oscap failed"
+
+RUN oscap xccdf generate fix \
+    --fix-type ansible \
+    --profile xccdf_org.ssgproject.content_profile_cis_level1_server \
+    --output /output/ubuntu2204-cis.yml \
+    /output/ssg-ubuntu2204-xccdf.xml

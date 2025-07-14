@@ -1,0 +1,25 @@
+# Ignore generated Ansible playbook
+ansible/harden/ubuntu2204-cis.yml
+
+# Ignore logs
+*.log
+/var/log/*
+!/ansible/harden/README.md
+
+# Ignore virtual machine or container leftovers
+*.vdi
+*.vbox*
+*.iso
+*.qcow2
+
+# Ignore system/editor metadata
+.DS_Store
+*.swp
+*.swo
+*.bak
+*~
+
+# Ignore Python cache or compiled files (if you add Python scripts)
+__pycache__/
+*.pyc
+
