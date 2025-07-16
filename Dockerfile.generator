@@ -28,7 +28,7 @@ RUN cmake -G Ninja -DSSG_PRODUCT_UBUNTU=ON .. && \
 RUN mkdir -p /output && \
     cp /scap/content/build/ssg-ubuntu2204-xccdf.xml /output/
 
-#RUN oscap info /output/ssg-ubuntu2204-xccdf.xml > /output/oscap_info.log || echo "oscap failed"
+RUN oscap info /output/ssg-ubuntu2204-xccdf.xml > /output/oscap_info.log || { echo "Error: oskap command failed"; log_error_and_exit; }
 
 RUN oscap xccdf generate fix \
     --fix-type ansible \

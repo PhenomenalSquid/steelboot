@@ -9,13 +9,15 @@ log() {
   echo -e "$msg" | tee -a "$LOGFILE"
 }
 
-
 log "steelboot is alive."
 
-log "Running Ubuntu CIS hardening playbook..."
-ansible-playbook /opt/steelboot/ansible/harden/ubuntu2204-cis.yml \
+# Run Ansible playbook
+if ! ansible-playbook /opt/steelboot/ansible/harden/ubuntu2204-cis.yml \
   -i localhost, \
   --connection=local \
-  2>&1 | tee -a "$LOGFILE"
+  2>&1 | tee -a "$LOGFILE"; then
+  log "Error: Ansible playbook execution failed"
+  exit 1
+fi
 
 log "Playbook completed."
