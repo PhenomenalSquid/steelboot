@@ -1,5 +1,5 @@
-# Ignore generated Ansible playbook
-ansible/harden/ubuntu2204-cis.yml
+# Generated Ansible playbook (now committed for baking into container)
+# ansible/roles/harden/tasks/ubuntu2204-cis.yml
 
 # Ignore logs
 *.log

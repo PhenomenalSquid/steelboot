@@ -1,10 +1,5 @@
 ---
-- name: Import and run SCAP generated playbook
-  import_playbook: harden/ubuntu2204-cis.yml
-  tags:
-    - scap
-
-- name: Apply Custom Hardening Role
+- name: Apply Hardening Role
   hosts: localhost
   connection: local
   roles:

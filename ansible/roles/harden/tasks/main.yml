@@ -1,0 +1,4 @@
+---
+# tasks file for harden
+- name: Include SCAP CIS Level 1 Server tasks
+  include: ubuntu2204-cis.yml

@@ -12,7 +12,7 @@ log() {
 log "steelboot is alive."
 
 # Run Ansible playbook
-if ! ansible-playbook ansible/harden/ubuntu2204-cis.yml \
+if ! ansible-playbook /opt/steelboot/ansible/steelboot-playbook.yml \
   -i localhost, \
   --connection=local \
   2>&1 | tee -a "$LOGFILE"; then

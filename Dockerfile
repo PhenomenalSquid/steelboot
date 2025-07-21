@@ -25,8 +25,8 @@ RUN apt-get install -y \
     openssh-client && \
     apt-get clean
 
-# Create directory for generated playbook (will be copied from generator container)
-RUN mkdir -p /opt/steelboot/ansible/harden
+# Copy ansible structure and generated playbook
+COPY ansible/ /opt/steelboot/ansible/
 
 RUN mkdir -p /var/log
 
