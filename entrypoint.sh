@@ -23,6 +23,7 @@ cp /etc/resolv.conf /mnt/etc/resolv.conf 2>/dev/null || true
 if ! chroot /mnt ansible-playbook /tmp/steelboot-ansible/steelboot-playbook.yml \
   -i localhost, \
   --connection=local \
+  --skip-tags aide,aide_build_database,aide_check_audit_tools,aide_periodic_cron_checking,package_aide_installed \
   2>&1 | tee -a "$LOGFILE"; then
   log "Error: Ansible playbook execution failed"
   rm -rf /mnt/tmp/steelboot-ansible

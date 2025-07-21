@@ -19,12 +19,12 @@ It runs from a Docker container and applies infrastructure configuration via Ans
 #still building this!
 
 ```bash
-# Example: Harden the host system
-docker run --rm -v /:/mnt steelboot --harden
+# Example: Harden the host system  
+sudo docker run --rm --privileged -v /:/mnt steelboot
 
 # Example: Deploy Tomcat with sensible defaults
-docker run --rm -v /:/mnt steelboot --deploy-tomcat
+sudo docker run --rm --privileged -v /:/mnt steelboot --deploy-tomcat
 
 # Optional: Run in offline mode (uses bundled Ansible playbooks)
-docker run --rm -v /:/mnt steelboot --harden --offline
+sudo docker run --rm --privileged -v /:/mnt steelboot --harden --offline
 
