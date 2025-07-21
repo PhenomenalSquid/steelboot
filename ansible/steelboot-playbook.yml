@@ -1,4 +1,14 @@
 ---
+- name: Pre-hardening backup
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Backup original hosts file
+      copy:
+        src: /etc/hosts
+        dest: /etc/hosts.steelboot-backup
+        remote_src: true
+
 - name: Import SCAP CIS Level 1 Server playbook
   import_playbook: roles/harden/tasks/ubuntu2204-cis.yml
 
@@ -6,4 +16,17 @@
   hosts: localhost
   connection: local
   roles:
-    - role: harden 
+    - role: harden
+
+- name: Post-hardening fixes
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Ensure localhost entries in hosts file
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ item }}"
+        state: present
+      loop:
+        - "127.0.0.1    localhost"
+        - "127.0.1.1    {{ ansible_hostname }}" 
