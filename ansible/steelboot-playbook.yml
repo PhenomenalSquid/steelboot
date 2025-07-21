@@ -1,8 +1,9 @@
 ---
-- name: Apply Hardening Role
+- name: Import SCAP CIS Level 1 Server playbook
+  import_playbook: roles/harden/tasks/ubuntu2204-cis.yml
+
+- name: Apply Custom Hardening Role
   hosts: localhost
   connection: local
   roles:
-    - role: harden
-      tags:
-        - custom 
+    - role: harden 

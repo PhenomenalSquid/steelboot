@@ -2,7 +2,7 @@
 #steelbot entrypoint
 echo "steelboot is alive."
 
-LOGFILE="/var/log/steelboot.log"
+LOGFILE="/mnt/var/log/steelboot.log"
 
 log() {
   local msg="[ $(date +%H:%M:%S) ] $1"
